@@ -9,6 +9,10 @@ class Dashboard extends Component {
     this.props.fetchCoinsData();
   }
 
+  redirectToCoin = (coin) => {
+    this.props.history.push(coin);
+  }
+
   renderCoins = () => this.props.coinsData.map((coin) => {
     const logo = `${coin.website_slug}_large_logo.png`;
     return (
@@ -16,7 +20,9 @@ class Dashboard extends Component {
         logo={logo}
         key={coin.id}
         name={coin.name}
+        change={coin.quotes.EUR.percent_change_24h}
         price={coin.quotes.EUR.price}
+        clicked={() => this.redirectToCoin(coin.website_slug)}
       />
     );
   })
