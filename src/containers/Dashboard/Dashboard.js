@@ -5,10 +5,6 @@ import { Coin } from '../../components';
 import * as actions from '../../store/actions';
 
 class Dashboard extends Component {
-  componentDidMount() {
-    this.props.fetchCoinsData();
-  }
-
   redirectToCoin = (coin) => {
     this.props.history.push(coin);
   }
@@ -41,4 +37,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, actions)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
