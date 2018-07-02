@@ -1,7 +1,10 @@
 .App {
   height: 100vh;
   width: 100%;
-  background: linear-gradient(to right bottom, #032563, #019DCA)
+  background: linear-gradient(to right bottom, #032563, #019DCA);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*

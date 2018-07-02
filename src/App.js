@@ -1,6 +1,9 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+import './App.css';
+import { Dashboard } from './containers';
 
-export default () => {
-  return (<div className="App">Hello</div>);
-}
+export default () => (
+  <div className="App">
+    <Dashboard />
+  </div>
+);
