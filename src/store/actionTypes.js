@@ -1,0 +1,2 @@
+export const FETCH_COINS_SUCCESS = 'FETCH_COINS_SUCCESS';
+export const FETCH_FAIL = 'FETCH_FAIL';
