@@ -11,7 +11,7 @@ class CoinChart extends Component {
 
     // margins and dimensions
     const margin = {
-      top: 10, right: 10, bottom: 30, left: 50,
+      top: 10, right: 10, bottom: 30, left: 60,
     };
     const width = 600 - margin.left - margin.right;
     const height = 200 - margin.top - margin.bottom;
@@ -32,7 +32,7 @@ class CoinChart extends Component {
       .range([height, 0]);
 
     const yAxisCall = d3.axisLeft(y)
-      .tickFormat(d => `$${d}`)
+      .tickFormat(d => `${d}EUR`)
       .ticks(4);
     g.append('g')
       .attr('class', 'y-axis')
@@ -117,7 +117,7 @@ class CoinChart extends Component {
         d1 = data[i],
         d = x0 - d0.time * 1000 > d1.time * 1000 - x0 ? d1 : d0;
       focus.attr('transform', `translate(${x(d.time * 1000)},${y(d.close)})`);
-      focus.select('text').text(`${d.close} $`);
+      focus.select('text').text(`${d.close} EUR`);
       focus.select('.x-hover-line').attr('y2', height - y(d.close));
       focus.select('.y-hover-line').attr('x2', -x(d.time * 1000));
     }
