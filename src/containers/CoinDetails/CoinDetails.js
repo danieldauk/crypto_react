@@ -55,7 +55,7 @@ class CoinDetails extends Component {
           </p>
         </div>
         <div className="coinDetails__chart">
-          {this.props.coinDetails.length !== 0 ? <CoinChart /> : null}
+          {(this.props.coinDetails.length !== 0) ? <CoinChart /> : null}
         </div>
       </div>
     );

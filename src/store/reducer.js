@@ -24,12 +24,19 @@ const fetchCoinDetails = (state, action) => {
   };
 };
 
+const deleteCoinDetails = state => ({
+  ...state,
+  coinDetails: [],
+});
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_COINS_SUCCESS:
       return fetchCoins(state, action);
     case actionTypes.FETCH_COIN_DETAILS_SUCCESS:
       return fetchCoinDetails(state, action);
+    case actionTypes.DELETE_COIN_DETAILS:
+      return deleteCoinDetails(state);
     default:
       return state;
   }

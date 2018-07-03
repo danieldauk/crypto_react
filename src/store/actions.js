@@ -40,3 +40,9 @@ export const fetchCoinDetailsSuccess = payload => ({
   type: actionTypes.FETCH_COIN_DETAILS_SUCCESS,
   payload,
 });
+
+export const deleteCoinDetails = () => (dispatch) => {
+  dispatch({
+    type: actionTypes.DELETE_COIN_DETAILS,
+  });
+};

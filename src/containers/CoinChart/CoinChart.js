@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
+import * as actions from '../../store/actions';
 
 import './CoinChart.css';
 
@@ -10,7 +11,7 @@ class CoinChart extends Component {
 
     // margins and dimensions
     const margin = {
-      top: 10, right: 10, bottom: 30, left: 40,
+      top: 10, right: 10, bottom: 30, left: 50,
     };
     const width = 600 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
@@ -114,6 +115,10 @@ class CoinChart extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.deleteCoinDetails();
+  }
+
   render() {
     return (
       <div id="coinChart" />
@@ -125,4 +130,4 @@ const mapStateToProps = state => ({
   coinDetails: state.coinDetails,
 });
 
-export default connect(mapStateToProps)(CoinChart);
+export default connect(mapStateToProps, actions)(CoinChart);
