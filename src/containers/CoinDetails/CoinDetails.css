@@ -1,0 +1,47 @@
+.coinDetails{
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.coinDetails__description {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px;
+  text-align: center;
+  color: #D4D9E3;
+  perspective: 1000px;
+  box-sizing: border-box;
+}
+
+.coinDetails__description p,h3{
+  padding: 0;
+  margin: 0;
+  margin-top: 15px;
+}
+
+.coinDetails__description img{
+  height: 200px;
+  animation: spinLogo 5s linear infinite;
+}
+
+.coinDetails__chart {
+  width: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@keyframes spinLogo{
+  from{
+    transform: rotateY(0)
+  }
+  to{
+    transform: rotateY(-360deg)
+  }
+}

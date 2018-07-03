@@ -10,22 +10,33 @@ export const fetchCoinsData = () => (dispatch) => {
   })
     .then((response) => {
       console.log(response.data.data);
-      dispatch(fetchSuccess(response.data.data));
+      dispatch(fetchCoinsSuccess(response.data.data));
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-export const fetchCoinDetails = coin => (dispatch) => {
-  axios.get(`https://api.coinmarketcap.com/v2/ticker/${coin}/`)
+export const fetchCoinDetails = coinSymbol => (dispatch) => {
+  axios.get('https://min-api.cryptocompare.com/data/histoday', {
+    params: {
+      fsym: coinSymbol,
+      tsym: 'EUR',
+      limit: 60,
+    },
+  })
     .then((response) => {
-      console.log(response.data);
+      console.log(response.data.Data);
     })
     .catch(err => console.log(err));
 };
 
-export const fetchSuccess = payload => ({
+export const fetchCoinsSuccess = payload => ({
   type: actionTypes.FETCH_COINS_SUCCESS,
+  payload,
+});
+
+export const fetchCoinDetailsSuccess = payload => ({
+  type: actionTypes.FETCH_COIN_DETAILS_SUCCESS,
   payload,
 });

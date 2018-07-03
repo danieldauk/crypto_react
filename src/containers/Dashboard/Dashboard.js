@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Dashboard.css';
 import { Coin } from '../../components';
-import * as actions from '../../store/actions';
+
 
 class Dashboard extends Component {
   redirectToCoin = (coin) => {
