@@ -14,7 +14,7 @@ class CoinChart extends Component {
       top: 10, right: 10, bottom: 30, left: 50,
     };
     const width = 600 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const height = 200 - margin.top - margin.bottom;
 
     // appending svg and chart group
     const svg = d3.select('#coinChart').append('svg')
@@ -32,7 +32,8 @@ class CoinChart extends Component {
       .range([height, 0]);
 
     const yAxisCall = d3.axisLeft(y)
-      .tickFormat(d => `$${d}`);
+      .tickFormat(d => `$${d}`)
+      .ticks(4);
     g.append('g')
       .attr('class', 'y-axis')
       .call(yAxisCall);
@@ -46,6 +47,7 @@ class CoinChart extends Component {
       .range([0, width - 80]);
 
     const xAxisCall = d3.axisBottom(x);
+
     g.append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0, ${height})`)
@@ -56,14 +58,20 @@ class CoinChart extends Component {
       .x(d => x(new Date(d.time * 1000)))
       .y(d => y(d.close));
 
+    const t = d3.transition().duration(2000);
 
     g.append('path')
-      .attr('class', 'line')
+      .attr('class', 'chart-line')
       .attr('fill', 'none')
       .attr('stroke', 'rgb(212, 217, 227)')
       .attr('stroke-width', '2px')
       .attr('transform', 'translate(2)')
-      .attr('d', line(data));
+      .attr('d', line(data))
+      .attr('stroke-dasharray', '2000')
+      .attr('stroke-dashoffset', 2000)
+      .transition(t)
+      .attr('stroke-dashoffset', 0);
+
 
     // tooltip
     const focus = g.append('g')

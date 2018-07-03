@@ -9,6 +9,7 @@ import { Dashboard, CoinDetails } from './containers';
 class App extends Component {
   componentDidMount() {
     this.props.fetchCoinsData();
+    this.props.fetchTotalMarketCap();
   }
 
   render() {

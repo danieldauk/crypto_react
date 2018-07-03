@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import coinDescription from '../../assets/cryptocurrencyData/cryptocurrencyData.js';
 import './CoinDetails.css';
-import { CoinChart } from '..';
+import { CoinChart, MarketCapPie } from '..';
 
 class CoinDetails extends Component {
   state = {
@@ -42,7 +42,7 @@ class CoinDetails extends Component {
 
 
   render() {
-    console.log(this.props.coinDetails);
+    console.log(this.state.currentCoin);
     return (
       <div className="coinDetails">
         <div className="coinDetails__description">
@@ -54,8 +54,14 @@ class CoinDetails extends Component {
             {coinDescription[this.state.currentCoin.website_slug].description}
           </p>
         </div>
-        <div className="coinDetails__chart">
+        <div className="coinDetails__details">
           {(this.props.coinDetails.length !== 0) ? <CoinChart /> : null}
+          <div className="coinDetails__details__market">
+            <div className="coinDetails__details__price" />
+            {(this.props.coinDetails.length !== 0) ? <MarketCapPie currentMarketCap={this.state.currentCoin.quotes.EUR.market_cap} /> : null}
+
+
+          </div>
         </div>
       </div>
     );

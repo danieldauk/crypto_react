@@ -17,6 +17,21 @@ export const fetchCoinsData = () => (dispatch) => {
     });
 };
 
+export const fetchTotalMarketCap = () => (dispatch) => {
+  axios.get('https://api.coinmarketcap.com/v2/global/', {
+    params: {
+      convert: 'EUR',
+    },
+  })
+    .then((response) => {
+      console.log(response.data.data);
+      dispatch(fetchMarketCap(response.data.data.quotes.EUR.total_market_cap));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const fetchCoinDetails = coinSymbol => (dispatch) => {
   axios.get('https://min-api.cryptocompare.com/data/histoday', {
     params: {
@@ -46,3 +61,8 @@ export const deleteCoinDetails = () => (dispatch) => {
     type: actionTypes.DELETE_COIN_DETAILS,
   });
 };
+
+export const fetchMarketCap = payload => ({
+  type: actionTypes.FETCH_MARKET_CAP,
+  payload,
+});

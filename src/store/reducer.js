@@ -1,7 +1,9 @@
 import * as actionTypes from './actionTypes';
 
+
 const initialState = {
   coinsData: [],
+  totalMarketCap: 0,
   coinDetails: [],
 };
 
@@ -16,11 +18,16 @@ const fetchCoins = (state, action) => {
   };
 };
 
-const fetchCoinDetails = (state, action) => {
+const fetchCoinDetails = (state, action) => ({
+  ...state,
+  coinDetails: action.payload,
+});
+
+const fetchMarketCap = (state, action) => {
   console.log(action.payload);
   return {
     ...state,
-    coinDetails: action.payload,
+    totalMarketCap: action.payload,
   };
 };
 
@@ -37,6 +44,8 @@ const reducer = (state = initialState, action) => {
       return fetchCoinDetails(state, action);
     case actionTypes.DELETE_COIN_DETAILS:
       return deleteCoinDetails(state);
+    case actionTypes.FETCH_MARKET_CAP:
+      return fetchMarketCap(state, action);
     default:
       return state;
   }
