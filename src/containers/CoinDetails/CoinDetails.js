@@ -14,9 +14,18 @@ class CoinDetails extends Component {
     if (this.state.currentCoin === '') {
       return true;
     }
+    return false;
+  }
+
+  componentDidMount() {
+    this.checkCoin();
   }
 
   componentDidUpdate() {
+    this.checkCoin();
+  }
+
+  checkCoin = () => {
     let coinSymbol;
     for (const coin in this.props.coinsData) {
       if (this.props.coinsData[coin].website_slug === this.props.match.params.coin) {
@@ -25,10 +34,10 @@ class CoinDetails extends Component {
         break;
       }
     }
-    console.log(coinDescription);
+
     if (coinSymbol) {
       this.props.fetchCoinDetails(coinSymbol);
-    } else {
+    } else if (this.props.coinsData.length !== 0) {
       this.props.history.push('/');
     }
   }
