@@ -42,7 +42,7 @@
 
 .coinDetails__details__market{
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: auto min-content;
   width:100%;
 }
 
