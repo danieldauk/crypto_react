@@ -16,10 +16,13 @@ const fetchCoins = (state, action) => {
   };
 };
 
-const fetchCoinDetails = (state, action) => ({
-  ...state,
-  coinDetails: action.payload,
-});
+const fetchCoinDetails = (state, action) => {
+  console.log(action.payload);
+  return {
+    ...state,
+    coinDetails: action.payload,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

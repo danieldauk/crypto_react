@@ -10,19 +10,15 @@ class CoinDetails extends Component {
     currentCoin: '',
   }
 
-  shouldComponentUpdate() {
-    if (this.state.currentCoin === '') {
-      return true;
-    }
-    return false;
-  }
 
   componentDidMount() {
     this.checkCoin();
   }
 
   componentDidUpdate() {
-    this.checkCoin();
+    if (this.state.currentCoin === '') {
+      this.checkCoin();
+    }
   }
 
   checkCoin = () => {
@@ -46,6 +42,7 @@ class CoinDetails extends Component {
 
 
   render() {
+    console.log(this.props.coinDetails);
     return (
       <div className="coinDetails">
         <div className="coinDetails__description">
@@ -58,7 +55,7 @@ class CoinDetails extends Component {
           </p>
         </div>
         <div className="coinDetails__chart">
-          <CoinChart />
+          {this.props.coinDetails.length !== 0 ? <CoinChart /> : null}
         </div>
       </div>
     );
@@ -67,6 +64,7 @@ class CoinDetails extends Component {
 
 const mapStateToProps = state => ({
   coinsData: state.coinsData,
+  coinDetails: state.coinDetails,
 });
 
 export default connect(mapStateToProps, actions)(CoinDetails);

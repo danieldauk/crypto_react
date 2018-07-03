@@ -1,0 +1,20 @@
+.y-axis line, path, text{
+stroke: #D4D9E3;
+}
+
+
+.tick text{
+  stroke-width: 0;
+  fill:#D4D9E3;
+}
+
+.tick line{
+  stroke: #D4D9E3;
+}
+.hover-line{
+  stroke: #4DD9E8;
+}
+
+.hover-circle{
+  fill:#4DD9E8;
+}

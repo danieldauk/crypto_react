@@ -22,11 +22,11 @@ export const fetchCoinDetails = coinSymbol => (dispatch) => {
     params: {
       fsym: coinSymbol,
       tsym: 'EUR',
-      limit: 60,
+      limit: 1000,
     },
   })
     .then((response) => {
-      console.log(response.data.Data);
+      dispatch(fetchCoinDetailsSuccess(response.data.Data));
     })
     .catch(err => console.log(err));
 };
