@@ -10,11 +10,14 @@ class CoinChart extends Component {
     const { coinDetails: data } = this.props;
 
     // margins and dimensions
+    const calcWidth = document.getElementById('coinChart').offsetWidth;
+    const calcHeight = document.getElementById('coinChart').offsetHeight;
+    console.log(calcWidth);
     const margin = {
       top: 10, right: 10, bottom: 30, left: 60,
     };
-    const width = 600 - margin.left - margin.right;
-    const height = 200 - margin.top - margin.bottom;
+    const width = calcWidth - margin.left - margin.right;
+    const height = calcHeight - margin.top - margin.bottom - 40;
 
     // appending svg and chart group
     const svg = d3.select('#coinChart').append('svg')
