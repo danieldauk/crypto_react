@@ -9,7 +9,7 @@ class MarketCapPie extends Component {
     const tip = d3tip(d3)
       .attr('class', 'd3-tip')
       .html(d => `
-      <span><strong>Market Cap: </strong>${d3.format(',.8r')(d.value)} EUR</span></br>
+      <span><strong>Market Cap: </strong>${d3.format(',.11r')(d.value)} EUR</span></br>
       <span><strong>Global Market Cap: </strong>${((d.value * 100) / totalMarketCap).toFixed(2)}%</span>
       `);
     const { totalMarketCap, currentMarketCap } = this.props;

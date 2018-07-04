@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as d3 from 'd3';
 import * as actions from '../../store/actions';
+import { IoArrowGraphDownRight, IoArrowGraphUpRight } from 'react-icons/lib/io/';
 import coinDescription from '../../assets/cryptocurrencyData/cryptocurrencyData.js';
 import './CoinDetails.css';
 import { CoinChart, MarketCapPie } from '..';
@@ -38,26 +40,98 @@ class CoinDetails extends Component {
     }
   }
 
+  renderPrice = () => {
+    const { currentCoin } = this.state;
+    if (currentCoin !== '') {
+      const { price, percent_change_24h } = this.state.currentCoin.quotes.EUR;
+      return (
+        <div className="coinDetails__details__price">
+          <h4>
+            Current Price
+          </h4>
+          <h3>
+            {'EUR '}
+            {(price).toFixed(2)}
+            {' '}
+
+            <span style={percent_change_24h < 0 ? { color: '#B5219F' } : { color: '#4DD9E8' }}>
+              (
+              {`${percent_change_24h}%`}
+              {percent_change_24h < 0 ? <IoArrowGraphDownRight /> : <IoArrowGraphUpRight />}
+              )
+
+            </span>
+
+
+          </h3>
+        </div>
+
+
+      );
+    }
+    return null;
+  }
+
+  renderSupply = () => {
+    const { currentCoin } = this.state;
+    if (currentCoin !== '') {
+      const { circulating_supply, max_supply, symbol } = this.state.currentCoin;
+      return (
+        <div className="coinDetails__details__supply">
+          <div>
+            <h4>
+              Circulating Supply
+            </h4>
+            <h3>
+              {`${symbol} ${d3.format(',.8r')(circulating_supply)}`}
+            </h3>
+          </div>
+          <div>
+            <h4>
+              Max Supply
+            </h4>
+            <h3>
+              {`${symbol} ${d3.format(',.8r')(max_supply)}`}
+
+            </h3>
+          </div>
+
+        </div>
+      );
+    }
+    return null;
+  }
+
   renderLogo = () => <img src={require(`../../assets/coin_logos/${this.state.currentCoin.website_slug}_large_logo.png`)} alt="logo" />
 
 
   render() {
+    const { website_slug, rank, name } = this.state.currentCoin;
     console.log(this.state.currentCoin);
     return (
       <div className="coinDetails">
         <div className="coinDetails__description">
           {this.renderLogo()}
           <h3>
-            {this.state.currentCoin.name}
+            {name}
           </h3>
+          <span>
+            Rank
+            {' '}
+            {rank}
+          </span>
           <p>
-            {coinDescription[this.state.currentCoin.website_slug].description}
+            {coinDescription[website_slug].description}
           </p>
         </div>
         <div className="coinDetails__details">
           {(this.props.coinDetails.length !== 0) ? <CoinChart /> : null}
           <div className="coinDetails__details__market">
-            <div className="coinDetails__details__price" />
+            <div className="coinDetails__details__quotes">
+
+              {this.renderPrice()}
+              {this.renderSupply()}
+            </div>
             {(this.props.coinDetails.length !== 0) ? <MarketCapPie currentMarketCap={this.state.currentCoin.quotes.EUR.market_cap} /> : null}
 
 
