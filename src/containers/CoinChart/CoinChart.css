@@ -7,6 +7,10 @@
   margin-bottom: 40px;
 }
 
+#coinChart svg{
+  overflow: visible;
+}
+
 .y-axis line, path, text{
 stroke: #D4D9E3;
 }

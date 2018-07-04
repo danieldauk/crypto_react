@@ -72,3 +72,12 @@
   top: 50%;
   left: 100%;
 }
+
+
+@media(max-width: 660px){
+
+  .pie-chart{
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+}

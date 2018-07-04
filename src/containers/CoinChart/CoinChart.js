@@ -11,13 +11,12 @@ class CoinChart extends Component {
 
     // margins and dimensions
     const calcWidth = document.getElementById('coinChart').offsetWidth;
-    const calcHeight = document.getElementById('coinChart').offsetHeight;
-    console.log(calcWidth);
+
     const margin = {
       top: 10, right: 10, bottom: 30, left: 60,
     };
     const width = calcWidth - margin.left - margin.right;
-    const height = calcHeight - margin.top - margin.bottom - 40;
+    const height = 250 - margin.top - margin.bottom - 40;
 
     // appending svg and chart group
     const svg = d3.select('#coinChart').append('svg')
@@ -47,9 +46,12 @@ class CoinChart extends Component {
         new Date(d3.min(data, d => d.time * 1000)),
         new Date(d3.max(data, d => d.time * 1000)),
       ])
-      .range([0, width - 80]);
+      .range([0, width]);
 
     const xAxisCall = d3.axisBottom(x);
+    if (window.matchMedia('(max-width:660px').matches) {
+      xAxisCall.ticks(3);
+    }
 
     g.append('g')
       .attr('class', 'x-axis')
@@ -90,7 +92,7 @@ class CoinChart extends Component {
     focus.append('line')
       .attr('class', 'y-hover-line hover-line')
       .attr('x1', 0)
-      .attr('x2', width - 80)
+      .attr('x2', width)
       .attr('stroke-dasharray', '10,10');
 
     focus.append('circle')
@@ -105,7 +107,7 @@ class CoinChart extends Component {
 
     g.append('rect')
       .attr('class', 'overlay')
-      .attr('width', width - 80)
+      .attr('width', width)
       .attr('height', height)
       .attr('fill', 'transparent')
       .on('mouseover', () => { focus.style('display', null); })

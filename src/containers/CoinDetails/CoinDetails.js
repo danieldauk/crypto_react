@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
-import { IoArrowGraphDownRight, IoArrowGraphUpRight } from 'react-icons/lib/io/';
+import { IoArrowGraphDownRight, IoArrowGraphUpRight, IoArrowLeftC } from 'react-icons/lib/io/';
 import * as actions from '../../store/actions';
 import coinDescription from '../../assets/cryptocurrencyData/cryptocurrencyData.js';
 import './CoinDetails.css';
@@ -51,10 +51,11 @@ class CoinDetails extends Component {
             Current Price
           </h4>
           <h3>
-            {'EUR '}
-            {(price).toFixed(2)}
+            <span>
+              {'EUR '}
+              {(price).toFixed(2)}
+            </span>
             {' '}
-
             <span style={percent_change_24h < 0 ? { color: '#B5219F' } : { color: '#4DD9E8' }}>
               (
               {`${percent_change_24h}%`}
@@ -147,6 +148,18 @@ class CoinDetails extends Component {
 
     return (
       <div className="coinDetails">
+        {coinDetails.length === 0 ? null : (
+          <div
+            className="coinDetails__return"
+            onClick={() => this.props.history.push('/')}
+          >
+            <IoArrowLeftC />
+            <p>
+              Dashboard
+            </p>
+          </div>
+        )
+        }
         {coinDetails.length === 0 ? <Spinner /> : this.renderView()}
       </div>
     );
