@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
-import * as actions from '../../store/actions';
 import { IoArrowGraphDownRight, IoArrowGraphUpRight } from 'react-icons/lib/io/';
+import * as actions from '../../store/actions';
 import coinDescription from '../../assets/cryptocurrencyData/cryptocurrencyData.js';
 import './CoinDetails.css';
 import { CoinChart, MarketCapPie } from '..';
+import { Spinner } from '../../components';
 
 class CoinDetails extends Component {
   state = {
@@ -105,11 +106,11 @@ class CoinDetails extends Component {
   renderLogo = () => <img src={require(`../../assets/coin_logos/${this.state.currentCoin.website_slug}_large_logo.png`)} alt="logo" />
 
 
-  render() {
+  renderView = () => {
     const { website_slug, rank, name } = this.state.currentCoin;
-    console.log(this.state.currentCoin);
+
     return (
-      <div className="coinDetails">
+      <div className="coinDetails__view">
         <div className="coinDetails__description">
           {this.renderLogo()}
           <h3>
@@ -137,6 +138,16 @@ class CoinDetails extends Component {
 
           </div>
         </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { coinDetails } = this.props;
+
+    return (
+      <div className="coinDetails">
+        {coinDetails.length === 0 ? <Spinner /> : this.renderView()}
       </div>
     );
   }
