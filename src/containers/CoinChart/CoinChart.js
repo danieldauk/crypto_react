@@ -100,7 +100,8 @@ class CoinChart extends Component {
       .attr('r', 3);
 
     focus.append('text')
-      .attr('x', 15)
+      .attr('x', -80)
+      .attr('y', -10)
       .attr('stroke-width', 0)
       .attr('fill', '#4DD9E8')
       .attr('dy', '.31em');
