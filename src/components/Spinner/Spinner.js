@@ -1,6 +1,9 @@
-import React from "react";
-import "./Spinner.css";
+import React from 'react';
+import './Spinner.css';
 
-export default ()=>{
-  return (<div class="lds-ripple"><div></div><div></div></div>);
-}
+export default () => (
+  <div className="lds-ripple">
+    <div />
+    <div />
+  </div>
+);

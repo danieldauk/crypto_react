@@ -52,7 +52,8 @@ class MarketCapPie extends Component {
     const g = svg.selectAll('.arc')
       .data(pie(data))
       .enter().append('g')
-      .attr('class', 'arc');
+      .attr('class', 'arc')
+      .on('mouseover', tip.hide);
 
     // append tooltip
     svg.select('.arc:last-child').on('mouseover', tip.show)

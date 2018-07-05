@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Route, withRouter, Switch } from 'react-router-dom';
+import {
+  Route, withRouter, Switch,
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from './store/actions';

@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Slider from 'rc-slider';
 import * as d3 from 'd3';
 import * as actions from '../../store/actions';
-
+import 'rc-slider/assets/index.css';
 import './CoinChart.css';
 
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+
 class CoinChart extends Component {
+  state = {
+    chartParameters: [
+    ],
+    data: [],
+  }
+
   componentDidMount() {
     const { coinDetails: data } = this.props;
-
+    console.log(data.length);
     // margins and dimensions
     const calcWidth = document.getElementById('coinChart').offsetWidth;
 
     const margin = {
-      top: 10, right: 10, bottom: 30, left: 60,
+      top: 10, right: 0, bottom: 30, left: 60,
     };
     const width = calcWidth - margin.left - margin.right;
     const height = 250 - margin.top - margin.bottom - 40;
@@ -36,7 +46,7 @@ class CoinChart extends Component {
     const yAxisCall = d3.axisLeft(y)
       .tickFormat(d => `${d}EUR`)
       .ticks(4);
-    g.append('g')
+    const yAxisGroup = g.append('g')
       .attr('class', 'y-axis')
       .call(yAxisCall);
 
@@ -49,11 +59,11 @@ class CoinChart extends Component {
       .range([0, width]);
 
     const xAxisCall = d3.axisBottom(x);
-    if (window.matchMedia('(max-width:660px').matches) {
+    if (window.matchMedia('(max-width:660px)').matches) {
       xAxisCall.ticks(3);
     }
 
-    g.append('g')
+    const xAxisGroup = g.append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0, ${height})`)
       .call(xAxisCall);
@@ -127,15 +137,61 @@ class CoinChart extends Component {
       focus.select('.x-hover-line').attr('y2', height - y(d.close));
       focus.select('.y-hover-line').attr('x2', -x(d.time * 1000));
     }
+
+    this.setState({ chartParameters: [x, y, svg, line, xAxisGroup, yAxisGroup] });
   }
 
   componentWillUnmount() {
     this.props.deleteCoinDetails();
   }
 
+  updateChart = (data, x, y, svg, line, xAxisGroup, yAxisGroup) => {
+    const t = d3.transition().duration(2000);
+    // Scale the range of the data again
+    y.domain([
+      d3.min(data, d => d.close),
+      d3.max(data, d => d.close)]);
+
+    x.domain([
+      new Date(d3.min(data, d => d.time * 1000)),
+      new Date(d3.max(data, d => d.time * 1000)),
+    ]);
+
+    svg.select('.chart-line')
+      .transition(t)
+      .attr('d', line(data));
+
+    const yAxisCall = d3.axisLeft(y)
+      .tickFormat(d => `${d}EUR`)
+      .ticks(4);
+
+    const xAxisCall = d3.axisBottom(x)
+      .ticks(5);
+    if (window.matchMedia('(max-width:660px)').matches) {
+      xAxisCall.ticks(3);
+    }
+
+    xAxisGroup.transition(t).call(xAxisCall);
+    yAxisGroup.transition(t).call(yAxisCall);
+  }
+
+  rangeHandler = (value) => {
+    this.updateChart(this.props.coinDetails.slice(value[0], value[1]), ...this.state.chartParameters);
+  }
+
   render() {
     return (
-      <div id="coinChart" />
+      <div className="test">
+        <div id="coinChart" />
+        <Range
+          onAfterChange={this.rangeHandler}
+          tipFormatter={value => `${d3.timeFormat('%d/%m/%Y')(new Date(this.props.coinDetails[value].time * 1000))}`}
+          min={0}
+          max={1000}
+          defaultValue={[0, 1000]}
+        />
+      </div>
+
     );
   }
 }

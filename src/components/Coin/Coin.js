@@ -15,7 +15,7 @@ export default ({
       </div>
       <div className="coin__quote">
         <div className="coin__quote__price">
-          {`$${price.toFixed(2)}`}
+          {`EUR ${price.toFixed(2)}`}
         </div>
         <div className="coin__quote__change" style={change < 0 ? { color: '#B5219F' } : { color: '#4DD9E8' }}>
           {`${change}%`}

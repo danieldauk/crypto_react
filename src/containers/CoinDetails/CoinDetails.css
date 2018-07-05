@@ -215,4 +215,10 @@
   .coinDetails__description {
     width: 100%;
   }
+
+  .coinDetails__details__supply {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-row-gap: 15px;
+  }
 }
